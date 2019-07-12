@@ -1,11 +1,25 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 
 class AddPost extends Component {
   state = {
     title: "",
     content: "",
-    author_id: 1
+    author_id: 1,
+    redirect: false
   };
+
+  setRedirect = () =>{
+    this.setState({
+      redirect: true
+    })
+  };
+
+  renderRedirect = () =>{
+    if(this.state.redirect){
+      return <Redirect to='/' />
+    }
+  }
 
   handleTitleChange = e => {
     this.setState({
@@ -21,8 +35,8 @@ class AddPost extends Component {
 
   handleSubmit = async () => {
     const url = "http://localhost:3000/v1/post/add";
+
     const formData = this.state;
-    console.log("Form Data:", formData);
     const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -31,13 +45,19 @@ class AddPost extends Component {
       },
       body: JSON.stringify(formData)
     });
-    console.log("Response:", response);
+    if(response.ok){
+      this.setRedirect();
+      return this.renderRedirect();
+    } else{
+      console.log("Failed to add post");
+    }
   };
 
   render() {
     return (
       <div>
         <h2>Add A Post:</h2>
+        {this.renderRedirect()}
         <span>Title:</span>
         <span>
           <input

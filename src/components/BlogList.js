@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import AddPost from "./AddPost";
+
 
 class BlogList extends Component {
   state = {
@@ -22,6 +22,7 @@ class BlogList extends Component {
     return data;
   };
 
+  
   render() {
     const { posts } = this.state;
     return (
@@ -36,7 +37,7 @@ class BlogList extends Component {
             );
           })}
         </ul>
-        <AddPost />
+        <Link to={`/add`}>Add Post</Link>
       </>
     );
   }
