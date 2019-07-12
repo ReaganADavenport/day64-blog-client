@@ -1,6 +1,18 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
+const BList = styled.ul `
+    flex: 1;
+    list-style-type: none;
+    margin: 0;
+
+    li{
+        margin: 4px 0;
+        padding: 4px 0;
+        width: 100%
+    }
+`;
 
 class BlogList extends Component {
   state = {
@@ -28,7 +40,7 @@ class BlogList extends Component {
     return (
       <>
         <h2>Blog Posts</h2>
-        <ul>
+        <BList>
           {posts.map(post => {
             return (
               <li key={`post-${post.id}`}>
@@ -36,7 +48,7 @@ class BlogList extends Component {
               </li>
             );
           })}
-        </ul>
+        </BList>
         <Link to={`/add`}>Add Post</Link>
       </>
     );
